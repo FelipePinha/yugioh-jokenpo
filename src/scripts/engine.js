@@ -6,8 +6,8 @@ const state = {
     },
     cardSprites: {
         avatar: document.getElementById('card-image'),
-        avatar: document.getElementById('card-name'),
-        avatar: document.getElementById('card-type')
+        name: document.getElementById('card-name'),
+        type: document.getElementById('card-type')
     },
     fieldCards: {
         player: document.getElementById('player-field-card'),
@@ -67,13 +67,19 @@ async function createCardImage(randomIdCard, fieldSide) {
         cardImage.addEventListener('click', () => {
             setCardsField(cardImage.getAttribute('data-id'))
         }) 
+
+        cardImage.addEventListener('mouseover', () => {
+            drawSelectCard(randomIdCard)
+        })
     }
 
-    cardImage.addEventListener('mouseover', () => {
-        drawSelectCard(randomIdCard)
-    })
-
     return cardImage
+}
+
+async function drawSelectCard(index) {
+    state.cardSprites.avatar.src = cardData[index].img
+    state.cardSprites.name.innerText = cardData[index].name
+    state.cardSprites.type.innerText = 'Attribute: ' + cardData[index].type
 }
 
 async function drawCards(cardNumbers, fieldSide) {
